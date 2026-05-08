@@ -1,0 +1,29 @@
+class Solution {
+    /**
+     * @param {string} s
+     * @param {number} k
+     * @return {number}
+     */
+    characterReplacement(s, k) {
+        
+        // Brute Force 
+
+        let maxLength = 0;
+
+        for (let i = 0; i < s.length; i++) {
+            let map = new Map();
+            let maxFreq = 0;
+            for (let j = i; j < s.length; j++) {
+                map.set(s[j], (map.get(s[j]) || 0) + 1);
+                maxFreq = Math.max(maxFreq, map.get(s[j]));
+
+                let changesNeeded = (j - i + 1) - maxFreq;
+
+                if (changesNeeded <= k) {
+                    maxLength = Math.max(maxLength, j - i + 1);
+                }
+            }
+        }
+        return maxLength;
+    }
+}
